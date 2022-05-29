@@ -1,0 +1,53 @@
+[33mcommit 921e26886ddacf12af1d39521432cdc18be3bdc2[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: az <azarkasbma@gmail.com>
+Date:   Sun May 29 17:13:33 2022 +0430
+
+    update git ignore
+
+[33mcommit 0d9dd89e2c98ecbaf727fea142e50cf7e9ee1163[m
+Author: az <azarkasbma@gmail.com>
+Date:   Sun May 29 17:04:32 2022 +0430
+
+    Remove sensitive informations
+
+[33mcommit 3579790a0140a1cd04790f2eb153e65087542ecf[m
+Author: az <azarkasbma@gmail.com>
+Date:   Sun May 29 16:47:56 2022 +0430
+
+    Assign Contractor, Access Detail and new-task view
+
+[33mcommit 498c8b037429e0e64f414db0587acda3f44d03fe[m
+Author: az <azarkasbma@gmail.com>
+Date:   Sat May 28 12:44:45 2022 +0430
+
+    LOGIN Required implemented
+
+[33mcommit adb8bbdca4200d703a3a537de3b3f5e039ab1249[m
+Author: az <azarkasbma@gmail.com>
+Date:   Sat May 28 11:59:45 2022 +0430
+
+    Add Login and Logout And Register Stuff
+
+[33mcommit 433252be02de7ceee768a6323d6b3c75238f10a0[m
+Author: az <azarkasbma@gmail.com>
+Date:   Tue May 24 16:32:11 2022 +0430
+
+    Add some templates
+
+[33mcommit bc003cfbe473e04c8ad5c2c3cf24520ea2fa0e49[m
+Author: az <azarkasbma@gmail.com>
+Date:   Mon May 23 15:57:11 2022 +0430
+
+    Add git ignore
+
+[33mcommit eab80bd270a3af24d4066a8bed8bd0ffc617eb31[m
+Author: az <azarkasbma@gmail.com>
+Date:   Mon May 23 15:55:36 2022 +0430
+
+    Models
+
+[33mcommit 9ed63ee1cd3610d704c6fbdc9facd3feb4269b93[m
+Author: az <azarkasbma@gmail.com>
+Date:   Sun May 22 18:51:23 2022 +0430
+
+    initialize

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fa">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'tasks\main.css' %}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div id="main-content" class="col-md-9">
+            <h1> سامانه‌ی انجام کار</h1>
+            <div>
+                <h3> افزودن کار جدید </h3>
+                <form class="form-horizontal" method="post">
+                    {% csrf_token %}
+                    <fieldset>
+                        <div class="form-group">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-6">
+                                <input id="title" name="title" class="form-control" maxlength="250">
+                            </div>
+                            <label class="control-label col-sm-2" for="title">عنوان</label>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-6">
+                                <textarea name="description" id="description" class="form-control" cols="40" rows="10"></textarea>
+                            </div>
+                            <label class="control-label col-sm-2" for="description">توضیحات</label>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-6">
+                                <input name="cost" id="cost" class="form-control" type="range" min="1000" max="10000" step="50">
+                            </div>
+                            <label class="control-label col-sm-2" for="cost">قیمت از ۱۰۰۰ تا ۱۰۰۰۰</label>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-6">
+                                <input name="time_period" id="time_period" class="form-control" type="number">
+                            </div>
+                            <label class="control-label col-sm-2" for="time_period">زمان تخمینی</label>
+                        </div>
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-8">
+                            <button class="btn btn-default btn-block" type="submit">افزودن کار</button>
+                        </div>
+                    </fieldset>
+                </form>
+                <h3>Official Form</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button class="btn btn-default btn-block" type="submit">افزودن کار</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <h5> شما با نام کاربری {{user.username}} به عنوان کارفرما وارد سیستم شده‌اید.</h5>
+            <a class="btn btn-default btn-block" href="{% url 'index' %}">صفحه‌ی اصلی</a>
+            <a class="btn btn-default btn-block" href="{% url 'tasks:logout' %}">خروج</a>
+        </div>
+    </div>
+    <footer>
+        <hr/>
+        <span> درباه‌ی ما</span>
+        <span>قوانین</span>
+    </footer>
+</div>
+</body>
+</html>
