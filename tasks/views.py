@@ -2,6 +2,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import authenticate, login as dj_login, logout as dj_logout
+from django.views.decorators.cache import cache_page
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 
@@ -10,6 +11,7 @@ from .forms import SignupForm
 PAGINATION_PER_PAGE = 2
 
 
+# @cache_page(60 * 5)
 def index(request):
     # page number
     if request.GET.get("page"):

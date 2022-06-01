@@ -80,8 +80,12 @@ WSGI_APPLICATION = "TMS.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "myproject",
+        "USER": "myprojectuser",
+        "PASSWORD": 'password',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -126,3 +130,10 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+CACHES = {
+    "default": {
+        "BACKEND": 'django.core.cache.backends.memcached.MemcachedCache',
+        "LOCATION": "127.0.0.1:11211"
+    }
+}

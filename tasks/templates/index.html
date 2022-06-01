@@ -88,12 +88,6 @@
                     </div>
                     <button class="btn btn-default btn-block" type="submit">ثبت نام</button>
                 </form>
-                <h3>ثبت نام</h3>
-                <form action="{% url 'tasks:register' %}" method="post">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button class="btn btn-default btn-block" type="submit">ثبت نام</button>
-                </form>
             {% endif %}
         </div>
     </div>
