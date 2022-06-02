@@ -20,7 +20,7 @@ class Task(models.Model):
     title = models.CharField(max_length=60)
     owner = models.ForeignKey(Employer, on_delete=models.CASCADE)
     cost = models.PositiveIntegerField()
-    time_period = models.CharField(max_length=60)
+    time_period = models.PositiveSmallIntegerField()
     description = models.TextField(blank=True)
     created_at = models.DateField(auto_now_add=True)
     assigned_contractor = models.ForeignKey(

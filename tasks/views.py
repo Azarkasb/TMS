@@ -45,7 +45,6 @@ def detail(request, task_id):
         "user": request.user,
         "is_employer": hasattr(request.user, "employer"),
     }
-    print(context)
     return render(request, "details.html", context=context)
 
 
