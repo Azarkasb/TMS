@@ -82,18 +82,6 @@ def register(request):
         if not form.is_valid():
             return HttpResponse(str(form.errors))
 
-        # TODO: USING EMAIL VERIFICATION
-        # user = form.save(commit=False)
-        # user.is_active = False
-        # user.save()
-        # from django.core.mail import EmailMessage
-        # email = EmailMessage(
-        #     "Test",
-        #     "Mest",
-        #     to=[user.email],
-        # )
-        # email.send()
-
         user = form.save()
 
         from django.contrib.auth.models import Permission
@@ -106,6 +94,25 @@ def register(request):
 
         dj_login(request, user)
         return HttpResponseRedirect(reverse("index"))
+
+
+def register_email(request):
+    # TODO: USING EMAIL VERIFICATION
+    # user = form.save(commit=False)
+    # user.is_active = False
+    # user.save()
+    # from django.core.mail import EmailMessage
+    # email = EmailMessage(
+    #     "Test",
+    #     "Mest",
+    #     to=[user.email],
+    # )
+    # email.send()
+    pass
+
+
+def activate_email(request):
+    pass
 
 
 def login_required_error(request):
