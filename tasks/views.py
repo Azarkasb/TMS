@@ -5,6 +5,8 @@ from django.contrib.auth import authenticate, login as dj_login, logout as dj_lo
 from django.views.decorators.cache import cache_page
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
+import logging
+logger = logging.getLogger('tms')
 
 from .models import Task, Contractor, Employer
 from .forms import SignupForm
@@ -13,6 +15,7 @@ PAGINATION_PER_PAGE = 2
 
 # @cache_page(60 * 5)
 def index(request):
+    logger.info('index page request received')
     # page number
     if request.GET.get("page"):
         page_number = int(request.GET.get("page"))
@@ -81,18 +84,6 @@ def register(request):
         form = SignupForm(request.POST)
         if not form.is_valid():
             return HttpResponse(str(form.errors))
-
-        # TODO: USING EMAIL VERIFICATION
-        # user = form.save(commit=False)
-        # user.is_active = False
-        # user.save()
-        # from django.core.mail import EmailMessage
-        # email = EmailMessage(
-        #     "Test",
-        #     "Mest",
-        #     to=[user.email],
-        # )
-        # email.send()
 
         user = form.save()
 
