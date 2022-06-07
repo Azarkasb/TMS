@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import authenticate, login as dj_login, logout as dj_logout
 from django.views.decorators.cache import cache_page
+from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 import logging
@@ -14,6 +15,7 @@ PAGINATION_PER_PAGE = 2
 
 
 # @cache_page(60 * 5)
+@csrf_exempt
 def index(request):
     logger.info('index page request received')
     # page number
@@ -40,6 +42,7 @@ def index(request):
     return response
 
 
+@csrf_exempt
 @login_required(login_url="/tasks/login-required/")
 def detail(request, task_id):
     task = get_object_or_404(Task, pk=task_id)
@@ -51,6 +54,7 @@ def detail(request, task_id):
     return render(request, "details.html", context=context)
 
 
+@csrf_exempt
 @permission_required("tasks.add_task", raise_exception=True)
 def new_task(request):
     from .forms import TaskForm
@@ -71,6 +75,7 @@ def new_task(request):
         return HttpResponseRedirect(reverse("index"))
 
 
+@csrf_exempt
 def assign_task(request, task_id):
     task = Task.objects.get(pk=task_id)
     contractor = Contractor.objects.get(user=request.user)
@@ -79,6 +84,7 @@ def assign_task(request, task_id):
     return HttpResponseRedirect(reverse("index"))
 
 
+@csrf_exempt
 def register(request):
     if request.method == "POST":
         form = SignupForm(request.POST)
@@ -99,10 +105,12 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
 
 
+@csrf_exempt
 def login_required_error(request):
     return HttpResponse("لطفا ابتدا ورود کنید")
 
 
+@csrf_exempt
 def login(request):
     if request.method == "POST":
         username = request.POST["username"]
@@ -116,6 +124,7 @@ def login(request):
             return HttpResponse("Wrong inputs", status=400)
 
 
+@csrf_exempt
 def logout(request):
     dj_logout(request)
     return HttpResponseRedirect(reverse("index"))
