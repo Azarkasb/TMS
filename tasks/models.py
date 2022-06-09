@@ -35,3 +35,14 @@ class Task(models.Model):
 
     def __str__(self):
         return self.title
+
+    @classmethod
+    def get_all_data_to_show(cls):
+        result = []
+        tasks = list(cls.objects.all().order_by("-created_at").values())
+
+        for task in tasks:
+            owner = str(Employer.objects.get(pk=task.get("owner_id")))
+            task["owner"] = owner
+            result.append(task)
+        return result

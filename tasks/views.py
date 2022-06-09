@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import authenticate, login as dj_login, logout as dj_logout
 from django.views.decorators.cache import cache_page
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.urls import reverse
 import logging
 logger = logging.getLogger('tms')
@@ -40,6 +40,11 @@ def index(request):
     response = render(request, "index.html", context)
     response.set_cookie("page_number", str(page_number))
     return response
+
+
+def load_all(request):
+    tasks = Task.get_all_data_to_show()
+    return JsonResponse({"tasks": tasks})
 
 
 @csrf_exempt

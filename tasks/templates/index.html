@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="{% static 'tasks\main.css' %}">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{% static 'tasks\main.js' %}"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -22,7 +24,7 @@
                     <th>توضیحات</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="tasksList">
                 {% for task in task_page %}
                     <tr>
                         <td>{{task.title}}</td>
@@ -43,6 +45,9 @@
                             <a href="?page={{page_number}}">{{page_number}}</a>
                         </li>
                     {% endfor %}
+                    <li>
+                        <a id="allTasksButton" href="sample">همه کارها</a>
+                    </li>
                 </ul>
             </div>
         </div>

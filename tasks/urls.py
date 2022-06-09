@@ -3,6 +3,7 @@ from tasks import views
 
 app_name = "tasks"
 urlpatterns = [
+    path("load_all/", views.load_all, name="load_all"),
     path("<int:task_id>/", views.detail, name="detail"),
     path('new-task/', views.new_task, name="new-task"),
     path('assign-task/<int:task_id>/', views.assign_task, name="assign-task"),
