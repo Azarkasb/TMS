@@ -10,13 +10,14 @@ function getAllTasks() {
                 console.log(task)
                 const taskHTML =`
                     <tr>
-                        <td>${task.title}</td>
-                        <td>${task.cost} تومان</td>
-                        <td>${task.time_period} روز</td>
-                        <td>${task.owner}</td>
+                        <td>{task.title}</td>
+                        <td>{task.cost} تومان</td>
+                        <td>{task.time_period} </td>
+                        <td>{task.owner}</td>
                         <td>
                             <a href="{% url 'tasks:detail' task.id %}" class="btn btn-default">توضیحات بیشتر</a>
                         </td>
+                        <td>{task.state}</td>
                     </tr>`;
                 taskList.append(taskHTML);
             });

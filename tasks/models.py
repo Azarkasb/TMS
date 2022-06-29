@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from accounts.models import User
 from django.db import models
 
 
@@ -17,8 +17,18 @@ class Contractor(models.Model):
 
 
 class Task(models.Model):
+    class TaskStatus(models.TextChoices):
+        PENDING = 'P', 'تعریف شده'
+        ASSIGNED = 'A', 'واگذار شده'
+        DONE = 'D', 'انجام شده'
+
     title = models.CharField(max_length=60)
     owner = models.ForeignKey(Employer, on_delete=models.CASCADE)
+    state = models.CharField(
+        max_length=1,
+        default=TaskStatus.PENDING,
+        choices=TaskStatus.choices,
+    )
     cost = models.PositiveIntegerField()
     time_period = models.PositiveSmallIntegerField()
     description = models.TextField(blank=True)
@@ -43,6 +53,17 @@ class Task(models.Model):
 
         for task in tasks:
             owner = str(Employer.objects.get(pk=task.get("owner_id")))
+            state = Task.objects.get(id=task.get("id")).get_state_display()
             task["owner"] = owner
+            task["state"] = state
             result.append(task)
         return result
+
+    def assign_contractor(self, contractor: Contractor):
+        self.assigned_contractor = contractor
+        self.state = Task.TaskStatus.ASSIGNED
+        self.save()
+
+    def done(self):
+        self.state = Task.TaskStatus.DONE
+        self.save()

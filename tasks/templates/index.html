@@ -22,18 +22,20 @@
                     <th>تخمین زمانی</th>
                     <th>صاحب کار</th>
                     <th>توضیحات</th>
+                    <th>وضعیت</th>
                 </tr>
                 </thead>
                 <tbody id="tasksList">
                 {% for task in task_page %}
                     <tr>
                         <td>{{task.title}}</td>
-                        <td>{{task.cost}}</td>
-                        <td>{{task.time_period}}</td>
+                        <td>{{task.cost}} تومان</td>
+                        <td>{{task.time_period}} روز</td>
                         <td>{{task.owner}}</td>
                         <td>
                             <a href="{% url 'tasks:detail' task.id %}" class="btn btn-default">توضیحات بیشتر</a>
                         </td>
+                        <td>{{task.get_state_display}}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

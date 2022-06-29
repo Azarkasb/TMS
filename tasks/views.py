@@ -1,3 +1,6 @@
+from .models import Task, Contractor, Employer
+from .forms import SignupForm
+
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
@@ -7,10 +10,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.urls import reverse
 import logging
+
 logger = logging.getLogger('tms')
 
-from .models import Task, Contractor, Employer
-from .forms import SignupForm
+
 PAGINATION_PER_PAGE = 2
 
 
@@ -70,11 +73,9 @@ def new_task(request):
         return render(request, "new_task.html", context)
     elif request.method == "POST":
         form = TaskForm(request.POST)
-        print(request.POST)
         if not form.is_valid():
             return HttpResponse(str(form.errors))
 
-        print(form.instance)
         form.instance.owner = request.user.employer
         form.save()
         return HttpResponseRedirect(reverse("index"))
@@ -82,10 +83,15 @@ def new_task(request):
 
 @csrf_exempt
 def assign_task(request, task_id):
-    task = Task.objects.get(pk=task_id)
-    contractor = Contractor.objects.get(user=request.user)
-    task.assigned_contractor = contractor
-    task.save()
+    task: Task = get_object_or_404(Task, id=task_id)
+    task.assign_contractor(request.user.contractor)
+    return HttpResponseRedirect(reverse("index"))
+
+
+@csrf_exempt
+def done_task(request, task_id):
+    task: Task = get_object_or_404(Task, id=task_id)
+    task.done()
     return HttpResponseRedirect(reverse("index"))
 
 

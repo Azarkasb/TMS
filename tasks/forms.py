@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from accounts.models import User
 
 from .models import Task
 
@@ -11,7 +11,6 @@ class SignupForm(UserCreationForm):
         ("employee", 'پیمانکار'),
     ]
     user_type = forms.ChoiceField(choices=USER_TYPES, widget=forms.RadioSelect)
-    # email = forms.EmailField(max_length=100, help_text="required")
 
     class Meta:
         model = User

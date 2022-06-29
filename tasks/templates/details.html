@@ -15,11 +15,22 @@
             <div>
                 <div class="col-sm-12">
                     <h3 style="display: inline-block">{{task.title}}</h3>
-                    {% if not is_employer %}
-                        {% if not task.is_assigned %}
-                            <a class="btn btn-default btn-block" href="{% url 'tasks:assign-task' task.id %}">انجام میدم</a>
+                    {% if task.state == "P" and user.is_employee %}
+                        <a class="btn btn-default btn-block" href="{% url 'tasks:assign-task' task.id %}">انجام میدم</a>
+                    {% endif %}
+
+                    {% if task.state == "A"%}
+                        {% if user.is_employee and task.assigned_contractor == user.contractor %}
+                            <a class="btn btn-default btn-block" href="{% url 'tasks:done-task' task.id %}">انجام دادم</a>
+                        {% else %}
+                            <h5>واگذار شده به {{task.assigned_contractor}}</h5>
                         {% endif %}
                     {% endif %}
+
+                    {% if task.state == "D" %}
+                        <h5>انجام شده توسط {{task.assigned_contractor}}</h5>
+                    {% endif %}
+
                     <hr/>
                 </div>
                 <div class="col-sm-2"></div>
