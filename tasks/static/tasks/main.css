@@ -2,10 +2,18 @@
     direction: rtl;
 }
 
+#navigator {
+    text-align: center;
+}
 #main-content {
     border-right-style: solid;
+    border-right-color: navy;
 }
 
+.main-title{
+    color: navy;
+    text-align: center;
+}
 #tasks-paginator {
     text-align: center;
 }

@@ -1,108 +1,93 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
 {% load static %}
-<html lang="fa">
-<head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'tasks\main.css' %}">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+{% block scripts %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{% static 'tasks\main.js' %}"></script>
-</head>
-<body>
-<div class="container-fluid">
-    <div class="row">
-        <div id="main-content" class="col-md-9">
-            <h1> سامانه‌ی انجام کار</h1>
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>عنوان کار</th>
-                    <th>ارزش کار</th>
-                    <th>تخمین زمانی</th>
-                    <th>صاحب کار</th>
-                    <th>توضیحات</th>
-                    <th>وضعیت</th>
-                </tr>
-                </thead>
-                <tbody id="tasksList">
-                {% for task in task_page %}
-                    <tr>
-                        <td>{{task.title}}</td>
-                        <td>{{task.cost}} تومان</td>
-                        <td>{{task.time_period}} روز</td>
-                        <td>{{task.owner}}</td>
-                        <td>
-                            <a href="{% url 'tasks:detail' task.id %}" class="btn btn-default">توضیحات بیشتر</a>
-                        </td>
-                        <td>{{task.get_state_display}}</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-            <div id="tasks-paginator">
-                <ul class="pagination">
-                    {% for page_number in task_page.paginator.page_range %}
-                        <li class="{% if page_number == task_page.number %}active{% endif %}">
-                            <a href="?page={{page_number}}">{{page_number}}</a>
-                        </li>
-                    {% endfor %}
-                    <li>
-                        <a id="allTasksButton" href="sample">همه کارها</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-3">
-            {% if user.is_authenticated %}
-                <h5> شما با نام کاربری {{user.username}} به عنوان {{user_type}} وارد سیستم شده‌اید.</h5>
-                {% if is_employer %}
-                    <a class="btn btn-default btn-block" href="{% url 'tasks:new-task' %}">افزودن کار</a>
-                {% endif %}
-                <a class="btn btn-default btn-block" href="{% url 'tasks:logout' %}">خروج</a>
-            {% else %}
-                <h3> ورود </h3>
-                <form action="{% url 'tasks:login' %}" method="post">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <input name="username" autocomplete="off" maxlength="100" class="form-control" placeholder="نام‌کاربری">
-                        <input name="password" autocomplete="off" class="form-control" placeholder="رمزعبور" type="password">
-                    </div>
-                    <button class="btn btn-default btn-block" type="submit">ورود</button>
-                </form>
-                <hr/>
-                <h3>ثبت نام</h3>
-                <form action="{% url 'tasks:register' %}" method="post">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <input name="username" maxlength="100" class="form-control" placeholder="نام‌کاربری">
-                    </div>
-                    <div class="form-group">
-                        <input name="email" class="form-control" placeholder="ایمیل" type="email">
-                    </div>
-                    <div class="form-group">
-                        <input name="password1" class="form-control" placeholder="رمزعبور" type="password">
-                    </div>
-                    <div class="form-group">
-                        <input name="password2" class="form-control" placeholder="تکرار رمز عبور" type="password">
-                    </div>
-                    <div class="form-group">
-                        <input name="user_type" type="radio" value="employer" id="employer">
-                        <label for="employer" >کارفرما</label>
-                        <br>
-                        <input name="user_type" type="radio" value="employee" id="employee">
-                        <label for="employee" >پیمانکار</label>
-                    </div>
-                    <button class="btn btn-default btn-block" type="submit">ثبت نام</button>
-                </form>
-            {% endif %}
-        </div>
+{% endblock %}
+
+
+{% block content %}
+    <table class="table table-striped table-hover table-responsive">
+        <thead>
+        <tr class="text-info">
+            <th>عنوان کار</th>
+            <th>ارزش کار</th>
+            <th>تخمین زمانی</th>
+            <th>صاحب کار</th>
+            <th>توضیحات</th>
+            <th>وضعیت</th>
+        </tr>
+        </thead>
+        <tbody id="tasksList">
+        {% for task in task_page %}
+            <tr>
+                <td>{{task.title}}</td>
+                <td>{{task.cost}} تومان</td>
+                <td>{{task.time_period}} روز</td>
+                <td>{{task.owner}}</td>
+                <td>
+                    <a href="{% url 'tasks:detail' task.id %}" class="btn btn-default">مشاهده کار</a>
+                </td>
+                <td>{{task.get_state_display}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div id="tasks-paginator">
+        <ul class="pagination">
+            {% for page_number in task_page.paginator.page_range %}
+                <li class="{% if page_number == task_page.number %}active{% endif %}">
+                    <a href="?page={{page_number}}">{{page_number}}</a>
+                </li>
+            {% endfor %}
+            <li>
+                <a id="allTasksButton" href="allTasks">همه کارها</a>
+            </li>
+        </ul>
     </div>
-    <footer>
+{% endblock %}
+
+
+{% block navigation %}
+    {% if user.is_authenticated and user.is_employer %}
+        <li><a href="{% url 'tasks:new-task' %}">افزودن کار</a></li>
+    {% endif %}
+    {% if not user.is_authenticated %}
+        <h3> ورود </h3>
+        <form action="{% url 'tasks:login' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input name="username" autocomplete="off" maxlength="100" class="form-control" placeholder="نام‌کاربری">
+                <input name="password" autocomplete="off" class="form-control" placeholder="رمزعبور" type="password">
+            </div>
+            <button class="btn btn-default btn-block" type="submit">ورود</button>
+        </form>
         <hr/>
-        <span> درباه‌ی ما</span>
-        <span>قوانین</span>
-    </footer>
-</div>
-</body>
-</html>
+        <h3>ثبت نام</h3>
+        <form action="{% url 'tasks:register' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input name="username" maxlength="100" class="form-control" placeholder="نام‌کاربری">
+            </div>
+            <div class="form-group">
+                <input name="email" class="form-control" placeholder="ایمیل" type="email">
+            </div>
+            <div class="form-group">
+                <input name="password1" class="form-control" placeholder="رمزعبور" type="password">
+            </div>
+            <div class="form-group">
+                <input name="password2" class="form-control" placeholder="تکرار رمز عبور" type="password">
+            </div>
+            <div class="form-group">
+                <input name="user_type" type="radio" value="employer" id="employer">
+                <label for="employer" >کارفرما</label>
+                <br>
+                <input name="user_type" type="radio" value="employee" id="employee">
+                <label for="employee" >پیمانکار</label>
+            </div>
+            <button class="btn btn-default btn-block" type="submit">ثبت نام</button>
+        </form>
+    {% endif %}
+{% endblock %}

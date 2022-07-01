@@ -14,14 +14,13 @@ import logging
 logger = logging.getLogger('tms')
 
 
-PAGINATION_PER_PAGE = 2
+PAGINATION_PER_PAGE = 7
 
 
 # @cache_page(60 * 5)
 @csrf_exempt
 def index(request):
     logger.info('index page request received')
-    # page number
     if request.GET.get("page"):
         page_number = int(request.GET.get("page"))
     elif request.COOKIES.get("page_number"):
@@ -45,6 +44,7 @@ def index(request):
     return response
 
 
+@csrf_exempt
 def load_all(request):
     tasks = Task.get_all_data_to_show()
     return JsonResponse({"tasks": tasks})

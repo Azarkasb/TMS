@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fa">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'tasks\main.css' %}">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>سامانه انجام کار</title>
+
+    {% block scripts %}{% endblock %}
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div id="main-content" class="col-md-9">
+            <h1 class="main-title"> سامانه‌ی انجام کار</h1>
+            {% block content %}{% endblock %}
+        </div>
+        <div id="navigator" class="col-md-3">
+            {% if user.is_authenticated %}
+                <h5> شما با نام کاربری <span class="text-danger"> {{user.username}} </span> به عنوان <span class="text-warning"> {{user.type}} </span> وارد سیستم شده‌اید.</h5>
+            {% else %}
+                <h5> سلام به <span class="main-title">سامانه انجام کار </span> خوش آمدید</h5>
+            {% endif %}
+            <ul class="nav nav-pills nav-stacked">
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'tasks:logout' %}">خروج</a></li>
+                {% endif %}
+                <li id="home"><a href="{% url 'index' %}">کارها</a></li>
+                {% block navigation %}{% endblock %}
+            </ul>
+        </div>
+    </div>
+    <footer>
+        <hr/>
+        <a class="text-success" href="https://www.linkedin.com/in/aazarkasb/"> علی آذرکسب</a>
+        <span> - </span>
+        <span class="text-warning">۱۴۰۱</span>
+    </footer>
+</div>
+</body>
+</html>

@@ -1,61 +1,34 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="fa">
-<head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'tasks\main.css' %}">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-<div class="container-fluid">
-    <div class="row">
-        <div id="main-content" class="col-md-9">
-            <h1> سامانه‌ی انجام کار</h1>
-            <div>
-                <div class="col-sm-12">
-                    <h3 style="display: inline-block">{{task.title}}</h3>
-                    {% if task.state == "P" and user.is_employee %}
-                        <a class="btn btn-default btn-block" href="{% url 'tasks:assign-task' task.id %}">انجام میدم</a>
-                    {% endif %}
+{% extends "base.html" %}
 
-                    {% if task.state == "A"%}
-                        {% if user.is_employee and task.assigned_contractor == user.contractor %}
-                            <a class="btn btn-default btn-block" href="{% url 'tasks:done-task' task.id %}">انجام دادم</a>
-                        {% else %}
-                            <h5>واگذار شده به {{task.assigned_contractor}}</h5>
-                        {% endif %}
-                    {% endif %}
+{% block content %}
+<div class="col-sm-12">
+    <h3 class="well">{{task.title}}</h3>
+    {% if task.state == "P" and user.is_employee %}
+        <a class="btn btn-default btn-block" href="{% url 'tasks:assign-task' task.id %}">انجام میدم</a>
+    {% endif %}
 
-                    {% if task.state == "D" %}
-                        <h5>انجام شده توسط {{task.assigned_contractor}}</h5>
-                    {% endif %}
+    {% if task.state == "A"%}
+        <h5>واگذار شده به {{task.assigned_contractor}}</h5>
+        {% if user.is_employee and task.assigned_contractor == user.contractor %}
+            <a class="btn btn-default btn-block" href="{% url 'tasks:done-task' task.id %}">انجام دادم</a>
+        {% endif %}
+    {% endif %}
 
-                    <hr/>
-                </div>
-                <div class="col-sm-2"></div>
-                <div class="col-sm-4">ساخته شده در {{task.created_at}}</div>
-                <div class="col-sm-3">{{task.cost}} تومان </div>
-                <div class="col-sm-3">{{task.time_period}} روز</div>
-                <div class="col-sm-12">
-                    <br/>
-                    توضیحات:
-                    <br/>
-                    {{task.description}}
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <h5> شما با نام کاربری {{user.username}} به عنوان {{user_type}} وارد سیستم شده‌اید.</h5>
-            <a class="btn btn-default btn-block" href="{% url 'index' %}">صفحه‌ی اصلی</a>
-            <a class="btn btn-default btn-block" href="{% url 'tasks:logout' %}">خروج</a>
-        </div>
-    </div>
-    <footer>
-        <hr/>
-        <span>درباه‌ی ما</span>
-        <span>قوانین</span>
-    </footer>
+    {% if task.state == "D" %}
+        <h5>انجام شده توسط {{task.assigned_contractor}}</h5>
+    {% endif %}
+
+    <hr/>
 </div>
-</body>
-</html>
+<div class="col-sm-2">ایجاد شده توسط {{task.owner}}</div>
+<div class="col-sm-4">ساخته شده در {{task.created_at}}</div>
+<div class="col-sm-3">{{task.cost}} تومان </div>
+<div class="col-sm-3">{{task.time_period}} روز</div>
+<div class="col-sm-12">
+        <br/>
+        توضیحات:
+        <br/>
+        {{task.description}}
+    </div>
+{% endblock %}
+
