@@ -17,5 +17,3 @@ class Command(BaseCommand):
             d.save()
 
         self.stdout.write(self.style.SUCCESS("DONE"))
-
-
