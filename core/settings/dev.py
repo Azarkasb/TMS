@@ -1,9 +1,7 @@
 from .base import *
 from pathlib import Path
-import environ
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # SECURITY
 SECRET_KEY = 'scatman'
 
