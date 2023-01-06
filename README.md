@@ -3,6 +3,8 @@ Taks Management System | سامانه انجام کار
 
 > Similar to https://ponisha.ir
 
+# Deployed On
+http://185.204.197.62
 
 ## Functionality
 There are two different User
