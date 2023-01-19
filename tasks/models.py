@@ -3,6 +3,8 @@ from django.db import models
 
 
 class Employer(models.Model):
+    """person who can create tasks."""
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -10,6 +12,8 @@ class Employer(models.Model):
 
 
 class Contractor(models.Model):
+    """person who can accept and do the tasks"""
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -33,6 +37,7 @@ class Task(models.Model):
     time_period = models.PositiveSmallIntegerField()
     description = models.TextField(blank=True)
     created_at = models.DateField(auto_now_add=True)
+
     assigned_contractor = models.ForeignKey(
         Contractor,
         on_delete=models.SET_NULL,
@@ -48,6 +53,7 @@ class Task(models.Model):
 
     @classmethod
     def get_all_data_to_show(cls):
+        """return tasks data for previewing"""
         result = []
         tasks = list(cls.objects.all().order_by("-created_at").values())
 

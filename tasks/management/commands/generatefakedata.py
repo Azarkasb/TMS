@@ -8,7 +8,7 @@ from ._factories import (
 
 
 class Command(BaseCommand):
-    help = "Generate a bunch of fake data"
+    help = "Generate a bunch of fake task"
 
     def handle(self, *args, **options):
         for i in range(9):

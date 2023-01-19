@@ -6,6 +6,8 @@ from .models import Task
 
 
 class SignupForm(UserCreationForm):
+    """form for registering new users"""
+
     USER_TYPES = [
         ("employer", "کارفرما"),
         ("employee", "پیمانکار"),
@@ -18,6 +20,8 @@ class SignupForm(UserCreationForm):
 
 
 class TaskForm(forms.ModelForm):
+    """form for adding or editing tasks."""
+
     MAX_COST = 50 * 1000
     MIN_COST = 1 * 1000
 

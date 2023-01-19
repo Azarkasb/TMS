@@ -13,3 +13,8 @@ There are two different User
 
 Employers can post a task with details like budget, deadline and description
 Then contractors can apply for doing tasks
+
+## Technical Aspects
+### black
+TODO
+

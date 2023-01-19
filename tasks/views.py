@@ -20,6 +20,9 @@ PAGINATION_PER_PAGE = 7
 # @cache_page(60 * 5)
 @csrf_exempt
 def index(request):
+    """main page for displaying tasks"""
+
+    # read last page number visited by user from cookies
     logger.info("index page request received")
     if request.GET.get("page"):
         page_number = int(request.GET.get("page"))
@@ -46,6 +49,7 @@ def index(request):
 
 @csrf_exempt
 def load_all(request):
+    """show all tasks without pagination"""
     tasks = Task.get_all_data_to_show()
     return JsonResponse({"tasks": tasks})
 
@@ -53,6 +57,8 @@ def load_all(request):
 @csrf_exempt
 @login_required(login_url="/tasks/login-required/")
 def detail(request, task_id):
+    """displaying details of a task"""
+
     task = get_object_or_404(Task, pk=task_id)
     context = {
         "task": task,
@@ -65,6 +71,8 @@ def detail(request, task_id):
 @csrf_exempt
 @permission_required("tasks.add_task", raise_exception=True)
 def new_task(request):
+    """Adding new Tasks (for employers)"""
+
     from .forms import TaskForm
 
     if request.method == "GET":
@@ -120,6 +128,7 @@ def register(request):
 
 @csrf_exempt
 def login_required_error(request):
+    """specific page display to unauthenticated users"""
     return HttpResponse("لطفا ابتدا ورود کنید")
 
 
