@@ -112,6 +112,7 @@ def register(request):
             return HttpResponse(str(form.errors))
 
         user = form.save()
+        logger.info(f"{user} is registering")
 
         from django.contrib.auth.models import Permission
 
