@@ -6,13 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tasks', '0006_alter_task_time_period'),
+        ("tasks", "0006_alter_task_time_period"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='task',
-            name='state',
-            field=models.CharField(choices=[('P', 'Pending'), ('W', 'Waiting'), ('D', 'Done')], default='P', max_length=1),
+            model_name="task",
+            name="state",
+            field=models.CharField(
+                choices=[("P", "Pending"), ("W", "Waiting"), ("D", "Done")],
+                default="P",
+                max_length=1,
+            ),
         ),
     ]

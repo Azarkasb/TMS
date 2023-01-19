@@ -18,9 +18,9 @@ class Contractor(models.Model):
 
 class Task(models.Model):
     class TaskStatus(models.TextChoices):
-        PENDING = 'P', 'تعریف شده'
-        ASSIGNED = 'A', 'واگذار شده'
-        DONE = 'D', 'انجام شده'
+        PENDING = "P", "تعریف شده"
+        ASSIGNED = "A", "واگذار شده"
+        DONE = "D", "انجام شده"
 
     title = models.CharField(max_length=60)
     owner = models.ForeignKey(Employer, on_delete=models.CASCADE)

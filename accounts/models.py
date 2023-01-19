@@ -4,18 +4,20 @@ from .validators import phone_validator
 
 
 class User(AbstractUser):
-    phone = models.CharField(max_length=15, validators=[phone_validator], null=True, blank=True)
+    phone = models.CharField(
+        max_length=15, validators=[phone_validator], null=True, blank=True
+    )
 
     def __str__(self):
         return self.username
 
     @property
     def is_employer(self):
-        return hasattr(self, 'employer')
+        return hasattr(self, "employer")
 
     @property
     def is_employee(self):
-        return hasattr(self, 'contractor')
+        return hasattr(self, "contractor")
 
     @property
     def type(self):

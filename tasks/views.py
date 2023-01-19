@@ -11,7 +11,7 @@ from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.urls import reverse
 import logging
 
-logger = logging.getLogger('tms')
+logger = logging.getLogger("tms")
 
 
 PAGINATION_PER_PAGE = 7
@@ -20,7 +20,7 @@ PAGINATION_PER_PAGE = 7
 # @cache_page(60 * 5)
 @csrf_exempt
 def index(request):
-    logger.info('index page request received')
+    logger.info("index page request received")
     if request.GET.get("page"):
         page_number = int(request.GET.get("page"))
     elif request.COOKIES.get("page_number"):
@@ -66,6 +66,7 @@ def detail(request, task_id):
 @permission_required("tasks.add_task", raise_exception=True)
 def new_task(request):
     from .forms import TaskForm
+
     if request.method == "GET":
         context = {
             "form": TaskForm(),
@@ -105,8 +106,9 @@ def register(request):
         user = form.save()
 
         from django.contrib.auth.models import Permission
+
         if form.cleaned_data.get("user_type") == "employer":
-            permission = Permission.objects.get(name='Can add task')
+            permission = Permission.objects.get(name="Can add task")
             user.user_permissions.add(permission)
             Employer.objects.create(user=user)
         else:

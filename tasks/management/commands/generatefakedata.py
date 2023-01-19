@@ -1,5 +1,10 @@
 from django.core.management.base import BaseCommand, CommandError
-from ._factories import EmployerFactory, EmployeeFactory, PendingTaskFactory, DoneOrAssignedTaskFactory
+from ._factories import (
+    EmployerFactory,
+    EmployeeFactory,
+    PendingTaskFactory,
+    DoneOrAssignedTaskFactory,
+)
 
 
 class Command(BaseCommand):
