@@ -4,7 +4,7 @@ Taks Management System | سامانه انجام کار
 > Similar to https://ponisha.ir
 
 # Deployed On
-http://185.204.197.62
+http://185.204.197.62 | http://azaranik.ir
 
 ## Functionality
 There are two different User
