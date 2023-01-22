@@ -30,6 +30,12 @@
                     <li><a href="{% url 'tasks:logout' %}">خروج</a></li>
                 {% endif %}
                 <li id="home"><a href="{% url 'index' %}">کارها</a></li>
+                {% if user.is_authenticated and user.is_employer %}
+                    <li><a href="{% url 'tasks:new-task' %}">افزودن کار</a></li>
+                {% endif %}
+                {% if user.is_authenticated and user.is_employer %}
+                    <li><a href="{% url 'employer_panel' %}">کارهای من</a></li>
+                {% endif %}
                 {% block navigation %}{% endblock %}
             </ul>
         </div>
