@@ -8,6 +8,14 @@ from ._factories import (
 
 
 class Command(BaseCommand):
+    """
+    Custom command added to django-admin
+
+    Can be invoked via python manage.py generatefakedata in the terminal
+
+    generates bunch of fake data for testing website functionality
+    """
+
     help = "Generate a bunch of fake task"
 
     def handle(self, *args, **options):

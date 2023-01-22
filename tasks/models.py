@@ -1,4 +1,5 @@
 from accounts.models import User
+from typing import List
 from django.db import models
 
 
@@ -45,14 +46,14 @@ class Task(models.Model):
     )
 
     @property
-    def is_assigned(self):
+    def is_assigned(self) -> bool:
         return self.assigned_contractor is not None
 
     def __str__(self):
         return self.title
 
     @classmethod
-    def get_all_data_to_show(cls):
+    def get_all_data_to_show(cls) -> List:
         """return tasks data for previewing"""
         result = []
         tasks = list(cls.objects.all().order_by("-created_at").values())
@@ -65,11 +66,11 @@ class Task(models.Model):
             result.append(task)
         return result
 
-    def assign_contractor(self, contractor: Contractor):
+    def assign_contractor(self, contractor: Contractor) -> None:
         self.assigned_contractor = contractor
         self.state = Task.TaskStatus.ASSIGNED
         self.save()
 
-    def done(self):
+    def done(self) -> None:
         self.state = Task.TaskStatus.DONE
         self.save()

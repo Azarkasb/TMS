@@ -26,6 +26,7 @@ class UserFactory(factory.django.DjangoModelFactory):
 
 
 class EmployeeFactory(factory.django.DjangoModelFactory):
+
     class Meta:
         model = Contractor
 

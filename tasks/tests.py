@@ -8,12 +8,12 @@ class TestUserRegistering(TestCase):
 
     def test_registering_employer(self):
         response = self.client.post(
-            "register/",
+            "tasks/register/",
             data={
                 "username": "Ali",
                 "email": "Ali@tms.com",
-                "password1": "iamAli2023",
-                "password2": "IAmAli2022",
+                "password1": "IAmAli2023",
+                "password2": "IAmAli2023",
                 "user_type": "employer",
             },
             format="json",
@@ -24,12 +24,12 @@ class TestUserRegistering(TestCase):
 
     def test_registering_contractor(self):
         self.client.post(
-            "register/",
+            "tasks/register/",
             data={
                 "username": "Javad",
                 "email": "Javad@tms.com",
-                "password1": "iamJavad2023",
-                "password2": "IAmJavad2022",
+                "password1": "IAmJavad2023",
+                "password2": "IAmJavad2023",
                 "user_type": "contractor",
             },
             format="json",
