@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>سامانه انجام کار</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     {% block scripts %}{% endblock %}
 </head>
@@ -31,10 +32,10 @@
                 {% endif %}
                 <li id="home"><a href="{% url 'index' %}">کارها</a></li>
                 {% if user.is_authenticated and user.is_employer %}
-                    <li><a href="{% url 'tasks:new-task' %}">افزودن کار</a></li>
+                    <li id="add_task"><a href="{% url 'tasks:new-task' %}">افزودن کار</a></li>
                 {% endif %}
                 {% if user.is_authenticated and user.is_employer %}
-                    <li><a href="{% url 'employer_panel' %}">کارهای من</a></li>
+                    <li id="employer_panel"><a href="{% url 'panel:employer_panel' %}">کارهای من</a></li>
                 {% endif %}
                 {% block navigation %}{% endblock %}
             </ul>
