@@ -3,7 +3,7 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # SECURITY
-SECRET_KEY = 'scatman'
+SECRET_KEY = "scatman"
 
 DEBUG = True
 
@@ -18,9 +18,9 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "myproject",
         "USER": "myprojectuser",
-        "PASSWORD": 'password',
-        'HOST': 'localhost',
-        'PORT': '',
+        "PASSWORD": "password",
+        "HOST": "localhost",
+        "PORT": "",
     }
 }
 
@@ -63,39 +63,38 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CACHES = {
     "default": {
-        "BACKEND": 'django.core.cache.backends.memcached.MemcachedCache',
-        "LOCATION": "127.0.0.1:11211"
+        "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+        "LOCATION": "127.0.0.1:11211",
     }
 }
 
 
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
         },
-        'file': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename':'tms.log',
-            'formatter': 'app',
+        "file": {
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            "filename": "tms.log",
+            "formatter": "app",
             # 'filename': '/var/log/tms.log'
-        }
+        },
     },
-    'loggers': {
-        'tms': {
-            'handlers': ['file'],
-            'level': 'INFO',
-            'propagate': True,
+    "loggers": {
+        "tms": {
+            "handlers": ["file"],
+            "level": "INFO",
+            "propagate": True,
         },
     },
     "formatters": {
         "app": {
             "format": (
-                u"%(asctime)s [%(levelname)-8s] "
-                "(%(module)s.%(funcName)s) %(message)s"
+                "%(asctime)s [%(levelname)-8s] " "(%(module)s.%(funcName)s) %(message)s"
             ),
             "datefmt": "%Y-%m-%d %H:%M:%S",
         },

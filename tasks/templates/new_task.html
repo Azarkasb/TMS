@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 
 
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+            $("#add_task").addClass("active");
+        });
+    </script>
+{% endblock %}
 
 {% block content %}
 <div>
@@ -43,9 +50,4 @@
         </fieldset>
     </form>
 </div>
-{% endblock %}
-
-
-{% block navigation %}
-    <li class="active" ><a href="{% url 'tasks:new-task' %}">افزودن کار</a></li>
 {% endblock %}

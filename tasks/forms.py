@@ -6,24 +6,28 @@ from .models import Task
 
 
 class SignupForm(UserCreationForm):
+    """form for registering new users"""
+
     USER_TYPES = [
-        ("employer", 'کارفرما'),
-        ("employee", 'پیمانکار'),
+        ("employer", "کارفرما"),
+        ("employee", "پیمانکار"),
     ]
     user_type = forms.ChoiceField(choices=USER_TYPES, widget=forms.RadioSelect)
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2', 'user_type')
+        fields = ("username", "email", "password1", "password2", "user_type")
 
 
 class TaskForm(forms.ModelForm):
+    """form for adding or editing tasks."""
+
     MAX_COST = 50 * 1000
     MIN_COST = 1 * 1000
 
     class Meta:
         model = Task
-        fields = ('title', 'time_period', 'cost', 'description')
+        fields = ("title", "time_period", "cost", "description")
 
     def clean_cost(self):
         cost = self.cleaned_data["cost"]

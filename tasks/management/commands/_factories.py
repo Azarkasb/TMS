@@ -8,6 +8,13 @@ f = Faker("fa_IR")
 
 
 class UserFactory(factory.django.DjangoModelFactory):
+    """
+    builds users based on fake datas
+
+    Fake datas obtain from faker module
+    Another module that has been integrated with django called factory for building fake models easily
+    """
+
     class Meta:
         model = User
 
@@ -19,6 +26,7 @@ class UserFactory(factory.django.DjangoModelFactory):
 
 
 class EmployeeFactory(factory.django.DjangoModelFactory):
+
     class Meta:
         model = Contractor
 

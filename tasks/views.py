@@ -11,7 +11,7 @@ from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.urls import reverse
 import logging
 
-logger = logging.getLogger('tms')
+logger = logging.getLogger("tms")
 
 
 PAGINATION_PER_PAGE = 7
@@ -20,7 +20,10 @@ PAGINATION_PER_PAGE = 7
 # @cache_page(60 * 5)
 @csrf_exempt
 def index(request):
-    logger.info('index page request received')
+    """main page for displaying tasks"""
+
+    # read last page number visited by user from cookies
+    logger.info("index page request received")
     if request.GET.get("page"):
         page_number = int(request.GET.get("page"))
     elif request.COOKIES.get("page_number"):
@@ -46,6 +49,7 @@ def index(request):
 
 @csrf_exempt
 def load_all(request):
+    """show all tasks without pagination"""
     tasks = Task.get_all_data_to_show()
     return JsonResponse({"tasks": tasks})
 
@@ -53,6 +57,8 @@ def load_all(request):
 @csrf_exempt
 @login_required(login_url="/tasks/login-required/")
 def detail(request, task_id):
+    """displaying details of a task"""
+
     task = get_object_or_404(Task, pk=task_id)
     context = {
         "task": task,
@@ -65,7 +71,10 @@ def detail(request, task_id):
 @csrf_exempt
 @permission_required("tasks.add_task", raise_exception=True)
 def new_task(request):
+    """Adding new Tasks (for employers)"""
+
     from .forms import TaskForm
+
     if request.method == "GET":
         context = {
             "form": TaskForm(),
@@ -103,10 +112,12 @@ def register(request):
             return HttpResponse(str(form.errors))
 
         user = form.save()
+        logger.info(f"{user} is registering")
 
         from django.contrib.auth.models import Permission
+
         if form.cleaned_data.get("user_type") == "employer":
-            permission = Permission.objects.get(name='Can add task')
+            permission = Permission.objects.get(name="Can add task")
             user.user_permissions.add(permission)
             Employer.objects.create(user=user)
         else:
@@ -118,6 +129,7 @@ def register(request):
 
 @csrf_exempt
 def login_required_error(request):
+    """specific page display to unauthenticated users"""
     return HttpResponse("لطفا ابتدا ورود کنید")
 
 

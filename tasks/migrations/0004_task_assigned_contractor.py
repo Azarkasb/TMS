@@ -7,13 +7,17 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tasks', '0003_task_created_at'),
+        ("tasks", "0003_task_created_at"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='task',
-            name='assigned_contractor',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='tasks.contractor'),
+            model_name="task",
+            name="assigned_contractor",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="tasks.contractor",
+            ),
         ),
     ]

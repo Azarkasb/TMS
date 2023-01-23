@@ -1,9 +1,22 @@
 from django.core.management.base import BaseCommand, CommandError
-from ._factories import EmployerFactory, EmployeeFactory, PendingTaskFactory, DoneOrAssignedTaskFactory
+from ._factories import (
+    EmployerFactory,
+    EmployeeFactory,
+    PendingTaskFactory,
+    DoneOrAssignedTaskFactory,
+)
 
 
 class Command(BaseCommand):
-    help = "Generate a bunch of fake data"
+    """
+    Custom command added to django-admin
+
+    Can be invoked via python manage.py generatefakedata in the terminal
+
+    generates bunch of fake data for testing website functionality
+    """
+
+    help = "Generate a bunch of fake task"
 
     def handle(self, *args, **options):
         for i in range(9):
