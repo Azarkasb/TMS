@@ -18,7 +18,6 @@ PAGINATION_PER_PAGE = 7
 
 
 # @cache_page(60 * 5)
-@csrf_exempt
 def index(request):
     """main page for displaying tasks"""
 
@@ -47,14 +46,12 @@ def index(request):
     return response
 
 
-@csrf_exempt
 def load_all(request):
     """show all tasks without pagination"""
     tasks = Task.get_all_data_to_show()
     return JsonResponse({"tasks": tasks})
 
 
-@csrf_exempt
 @login_required(login_url="/tasks/login-required/")
 def detail(request, task_id):
     """displaying details of a task"""
@@ -68,7 +65,6 @@ def detail(request, task_id):
     return render(request, "details.html", context=context)
 
 
-@csrf_exempt
 @permission_required("tasks.add_task", raise_exception=True)
 def new_task(request):
     """Adding new Tasks (for employers)"""
@@ -90,21 +86,18 @@ def new_task(request):
         return HttpResponseRedirect(reverse("index"))
 
 
-@csrf_exempt
 def assign_task(request, task_id):
     task: Task = get_object_or_404(Task, id=task_id)
     task.assign_contractor(request.user.contractor)
     return HttpResponseRedirect(reverse("index"))
 
 
-@csrf_exempt
 def done_task(request, task_id):
     task: Task = get_object_or_404(Task, id=task_id)
     task.done()
     return HttpResponseRedirect(reverse("index"))
 
 
-@csrf_exempt
 def register(request):
     if request.method == "POST":
         form = SignupForm(request.POST)
@@ -127,13 +120,11 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
 
 
-@csrf_exempt
 def login_required_error(request):
     """specific page display to unauthenticated users"""
     return HttpResponse("لطفا ابتدا ورود کنید")
 
 
-@csrf_exempt
 def login(request):
     if request.method == "POST":
         username = request.POST["username"]
@@ -147,7 +138,6 @@ def login(request):
             return HttpResponse("Wrong inputs", status=400)
 
 
-@csrf_exempt
 def logout(request):
     dj_logout(request)
     return HttpResponseRedirect(reverse("index"))
