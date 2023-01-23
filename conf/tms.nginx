@@ -1,0 +1,17 @@
+upstream django {
+    server 127.0.0.1:8001;
+}
+
+server {
+    listen      8000;
+    server_name azaranik.ir;
+    charset     utf-8;
+
+    location /static {
+        alias /home/az/TMS/static;
+    }
+
+    location / {
+        proxy_pass http://django;
+    }
+}
