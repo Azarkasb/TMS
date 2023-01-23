@@ -16,14 +16,14 @@ class User(AbstractUser):
         return hasattr(self, "employer")
 
     @property
-    def is_employee(self) -> bool:
+    def is_contractor(self) -> bool:
         return hasattr(self, "contractor")
 
     @property
     def type(self) -> str:
         if self.is_employer:
             return "کارفرما"
-        elif self.is_employee:
+        elif self.is_contractor:
             return "پیمانکار"
         else:
             return "ناشناس"

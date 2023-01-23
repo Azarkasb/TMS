@@ -3,13 +3,13 @@
 {% block content %}
 <div class="col-sm-12">
     <h3 class="well">{{task.title}}</h3>
-    {% if task.state == "P" and user.is_employee %}
+    {% if task.state == "P" and user.is_contractor %}
         <a class="btn btn-default btn-block" href="{% url 'tasks:assign-task' task.id %}">انجام میدم</a>
     {% endif %}
 
     {% if task.state == "A"%}
         <h5>واگذار شده به {{task.assigned_contractor}}</h5>
-        {% if user.is_employee and task.assigned_contractor == user.contractor %}
+        {% if user.is_contractor and task.assigned_contractor == user.contractor %}
             <a class="btn btn-default btn-block" href="{% url 'tasks:done-task' task.id %}">انجام دادم</a>
         {% endif %}
     {% endif %}

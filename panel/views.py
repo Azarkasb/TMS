@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView
-from tasks.models import Task, Employer
+from tasks.models import Task, Employer, Contractor
 
 
 class EmployerPanel(TemplateView):
@@ -11,4 +11,15 @@ class EmployerPanel(TemplateView):
         context['pending_tasks'] = Task.objects.filter(owner=employer, state='P')
         context['assigned_tasks'] = Task.objects.filter(owner=employer, state='A')
         context['done_tasks'] = Task.objects.filter(owner=employer, state='D')
+        return context
+
+
+class ContractorPanel(TemplateView):
+    template_name = 'contractor_tasks.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        contractor = Contractor.objects.get(user=self.request.user)
+        context['assigned_tasks'] = Task.objects.filter(assigned_contractor=contractor, state='A')
+        context['done_tasks'] = Task.objects.filter(assigned_contractor=contractor, state='D')
         return context

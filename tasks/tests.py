@@ -36,4 +36,4 @@ class TestUserRegistering(TestCase):
         )
         contractor = Contractor.objects.get(user__username="Javad")
         self.assertEqual(contractor.user.email, "Javad@tms.com")
-        self.assertEqual(contractor.user.is_employee, True)
+        self.assertEqual(contractor.user.is_contractor, True)
