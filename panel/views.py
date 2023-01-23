@@ -1,8 +1,9 @@
 from django.views.generic import TemplateView
 from tasks.models import Task, Employer, Contractor
+from .permissions import EmployerPermissionMixin, ContractorPermissionMixin
 
 
-class EmployerPanel(TemplateView):
+class EmployerPanel(EmployerPermissionMixin, TemplateView):
     template_name = 'employer_tasks.html'
 
     def get_context_data(self, **kwargs):
@@ -14,7 +15,7 @@ class EmployerPanel(TemplateView):
         return context
 
 
-class ContractorPanel(TemplateView):
+class ContractorPanel(ContractorPermissionMixin, TemplateView):
     template_name = 'contractor_tasks.html'
 
     def get_context_data(self, **kwargs):

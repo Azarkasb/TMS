@@ -38,7 +38,7 @@
                     <li id="employer_panel"><a href="{% url 'panel:employer_panel' %}">کارهای من</a></li>
                 {% endif %}
                 {% if user.is_authenticated and user.is_contractor %}
-                    <li id="employer_panel"><a href="{% url 'panel:contractor_panel' %}">کارهای من</a></li>
+                    <li id="contractor_panel"><a href="{% url 'panel:contractor_panel' %}">کارهای من</a></li>
                 {% endif %}
                 {% block navigation %}{% endblock %}
             </ul>
